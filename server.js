@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const uuid = require('uuid');
 const router = express.Router()
 const path = require('path');
 const socket = require('socket.io');
 const helmet = require('helmet');
 
 const adsRoutes = require('./routes/ads.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api', adsRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((req, res) => {
   res.status(400).send('Not found..');
