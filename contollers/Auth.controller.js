@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async ( req, res) => {
+exports.login = async (req, res) => {
   try{
     const { login, password } = req.body;
     if(login && typeof login === 'string' && password && typeof password === 'string'){
@@ -42,11 +42,15 @@ exports.login = async ( req, res) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  try {
+    req.session.destroy();
+  }
+  catch(err){
+    res.status(500).json({ message: err });
+  }
+};
+
 exports.getUser = async (req, res) => {
-  if(req.session.login) {
-    res.send({ login: req.session.login });
-  }
-  else{
-    res.status(401).send({ message: 'You are not authorized' });
-  }
+ res.send('I\'m logged');
 };
