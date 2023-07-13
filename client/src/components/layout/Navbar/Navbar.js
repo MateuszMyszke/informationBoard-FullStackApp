@@ -9,9 +9,9 @@ const Navbar = () => {
       </div>
       <div className={styles.navItem}>
         <ul>
-          <li>Home</li>
-          <li>Sign in </li>
-          <li>Register</li>
+          <li><a href='/'>Home</a></li>
+          <li><a href='/login'>Sign in</a></li>
+          <li><a href='/register'>Register</a></li>
         </ul>
       </div>
     </div>

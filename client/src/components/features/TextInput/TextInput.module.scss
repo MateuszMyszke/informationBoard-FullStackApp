@@ -1,7 +1,12 @@
 @import '../../../styles/settings.scss';
 
-.input{
-  height: 30px;
-  width: 250px;
-  padding-left: 20px ;
+div{
+  margin: 5px;
 }
+
+input{
+  display: block;
+  height: 22px;
+  width: 150px;
+}
+
