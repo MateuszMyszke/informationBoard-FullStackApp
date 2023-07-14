@@ -3,6 +3,9 @@ import styles from './RegisterForm.module.scss';
 import Button from '../Button/Button';
 import { useState } from 'react';
 import { API_URL } from '../../../confing';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const RegisterForm = () => {
 
@@ -10,6 +13,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [avatar, setAvatar] = useState(null);
   const [telephon, setTelephon] = useState('');
+  const [status, setStatus] = useState(null);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -26,11 +30,62 @@ const RegisterForm = () => {
       body: fd,
     };
 
-    fetch(`${API_URL}auth/register`, option);
+    setStatus('loading');
+    fetch(`${API_URL}/auth/register`, option)
+      .then(res => {
+        if(res.status === 201){
+          setStatus('success');
+        } else if(res.status === 400){
+          setStatus('clientError');
+        } else if(res.status === 409){
+          setStatus('loginError');
+        } else{
+          setStatus('serverError');
+        }
+      })
+      .catch(err => {
+        setStatus('serverError');
+      });
   }
 
   return(
     <form className={styles.register} onSubmit={handleSubmit}>
+      <h1>Sign up</h1>
+
+      {status === "success" &&(
+        <Alert variant='success'>
+          <Alert.Heading>Success!</Alert.Heading>
+          <p>You have been successful registered</p>
+        </Alert>
+      )}
+
+      {status === "serverError" &&( 
+        <Alert variant='danger'>
+          <Alert.Heading>Something went wrong!</Alert.Heading>
+          <p>Unexpected error please try again</p>
+        </Alert>
+      )}
+
+      {status === "clientError" &&( 
+        <Alert variant='danger'>
+          <Alert.Heading>Not enough data</Alert.Heading>
+          <p>You have to fill all the fields</p>
+        </Alert>
+      )}
+
+      {status === "loginError" &&( 
+        <Alert variant='warning'>
+          <Alert.Heading>Login already in use</Alert.Heading>
+          <p>You have to use other login</p>
+        </Alert>
+      )}
+
+      {status === "loading" &&( 
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
+
       <div className={styles.dform}>
         <label>Login: </label>
         <TextInput value={login} onChange={e => setLogin(e.target.value)} placeholder="Enter login" type="text"></TextInput>
