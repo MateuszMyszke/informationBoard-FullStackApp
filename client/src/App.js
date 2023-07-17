@@ -5,9 +5,22 @@ import Register from './components/pages/Register/Register';
 import Login from './components/pages/Login/Login';
 import Navbar from './components/layout/Navbar/Navbar';
 import Footer from './components/layout/Footer/Footer';
-
+import AddAds from './components/pages/AddAds/AddAds';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { logIn } from './redux/usersRedux';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+
+    if(loggedInUser){
+      dispatch(logIn({ login: loggedInUser}));
+    }
+  }, [dispatch]);
+
   return(
     <main>
         <Navbar />
@@ -16,6 +29,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/ads/add" element={<AddAds />}/>
           </Routes>
         </Container>
         <Footer />      

@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
       }
       else {
         if(bcrypt.compareSync(password, user.password)) {
-          req.session.login = {login: user.login, id: user.id};
+          req.session.user = {login: user.login, id: user.id};
           res.status(200).send({ message: 'Login successful' });
         }
         else {

@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import initialState from './initialState';
 import adsReducer from './adsRedux';
 import usersReducer  from './usersRedux';
+import userData from './userData';
 
 const subreducers = {
+  user: usersReducer,
   ads: adsReducer,
-  user: usersReducer
+  userData: userData,
 };
 
 const reducer = combineReducers(subreducers);
