@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
       const userWithLogin = await User.findOne({ login });
       if(userWithLogin){
        return(
-        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`),
+        fs.unlinkSync(`./public/uploads/${req.file.filename}`),
         res.status(409).send({ message: 'User with this login already exists' })
        ); 
       }
@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
       res.status(201).send({ message: 'User created' + user.login });
     } else {
       if (req.file){
-        fs.unlinkSync(`./client/public/uploads/${req.file.filename}`);
+        fs.unlinkSync(`./public/uploads/${req.file.filename}`);
       }
       res.status(400).send({ message: 'Bad request' });
     }
@@ -61,5 +61,5 @@ exports.logout = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
- res.send('I\'m logged');
+ res.send(req.session);
 };

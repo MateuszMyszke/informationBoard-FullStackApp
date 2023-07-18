@@ -27,11 +27,12 @@ const RegisterForm = () => {
 
     const option = {
       method: 'POST',
+      credentials: 'include',
       body: fd,
     };
 
     setStatus('loading');
-    fetch(`${API_URL}/auth/register`, option)
+    fetch(`${API_URL}/api/auth/register`, option)
       .then(res => {
         if(res.status === 201){
           setStatus('success');

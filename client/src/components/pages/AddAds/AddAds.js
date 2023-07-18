@@ -3,6 +3,8 @@ import TextInput from '../../features/TextInput/TextInput';
 import { useState } from 'react';
 import Button from '../../features/Button/Button';
 import { API_URL } from '../../../confing';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 
 const AddAds = () => {
 
@@ -27,14 +29,16 @@ const AddAds = () => {
     fd.append('location', location);
     fd.append('image', image);
     fd.append('user', currentUser);
+    fd.append('pubDate', pubDate);
 
     const option = {
       method: 'POST',
-      body: fd,
       credentials: 'include',
+      body: fd,
     };
 
-    fetch(`${API_URL}/ads`, option)
+    setStatus('loading');
+    fetch(`${API_URL}/api/ads`, option)
     .then(res => {
       if(res.status === 201){
         setStatus('success');
@@ -47,6 +51,7 @@ const AddAds = () => {
       }
     })
     .catch(err => {
+      console.log(err);
       setStatus('serverError');
     });
   }
@@ -56,6 +61,40 @@ const AddAds = () => {
   return(
     
    <form className={styles.adsForm} onSubmit={handleSubmit}>
+
+      {status === "success" &&(
+        <Alert variant='success'>
+          <Alert.Heading>Success!</Alert.Heading>
+          <p>You have been successful registered</p>
+        </Alert>
+      )}
+
+      {status === "serverError" &&( 
+        <Alert variant='danger'>
+          <Alert.Heading>Something went wrong!</Alert.Heading>
+          <p>Unexpected error please try again</p>
+        </Alert>
+      )}
+
+      {status === "clientError" &&( 
+        <Alert variant='danger'>
+          <Alert.Heading>Not enough data</Alert.Heading>
+          <p>You have to fill all the fields</p>
+        </Alert>
+      )}
+
+      {status === "loginError" &&( 
+        <Alert variant='warning'>
+          <Alert.Heading>Login already in use</Alert.Heading>
+          <p>You have to use other login</p>
+        </Alert>
+      )}
+
+      {status === "loading" &&( 
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
 
     <div className={styles.dform}>
       <label>Title: </label>
