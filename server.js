@@ -14,7 +14,7 @@ app.listen(process.env.PORT || 8000, () => {
 
 connectToDB();
 
-app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 if(process.env.NODE_ENV !== 'production') {
   app.use(
