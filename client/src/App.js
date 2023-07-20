@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { logIn } from './redux/usersRedux';
 import AdPage from './components/pages/AdPage/AdPage';
+import EditPages from './components/pages/EditPages/EditPages';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/login" element={<Login />}/>
             <Route path="/ads/add" element={<AddAds />}/>
             <Route path="/ads/:id" element={<AdPage />}/>
+            <Route path="/ads/edit/:id" element={<EditPages />}/>
           </Routes>
         </Container>
         <Footer />      

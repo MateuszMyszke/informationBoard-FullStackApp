@@ -6,14 +6,14 @@ import { API_URL } from '../../../confing';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 
-const AddAds = () => {
+const AddAds = (props) => {
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [pubDate, setPubDate] = useState('')
-  const [location, setLocation] = useState('');
-  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState(props.title || '');
+  const [description, setDescription] = useState(props.description || '');
+  const [price, setPrice] = useState(props.price || '');
+  const [pubDate, setPubDate] = useState(props.pubDate || '')
+  const [location, setLocation] = useState(props.location || '');
+  const [image, setImage] = useState(props.image || null);
   const [status, setStatus] = useState(null);
 
   const currentUser = localStorage.getItem('loggedInUser');
