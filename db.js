@@ -8,11 +8,12 @@ const connectToDB =  async () => {
   if (NODE_ENV === 'production') 
   dbUri = process.env.DB_URL;
   else dbUri = 'mongodb://localhost:27017/InfoBoard';
-
+ 
   await mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+
   const db = mongoose.connection;
 
   // on success
