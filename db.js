@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connectToDB = () => {
+const connectToDB =  async () => {
   // connect to DB
   const NODE_ENV = process.env.NODE_ENV;
   let dbUri = '';
@@ -9,7 +9,7 @@ const connectToDB = () => {
   dbUri = process.env.DB_URL;
   else dbUri = 'mongodb://localhost:27017/InfoBoard';
 
-  mongoose.connect(dbUri, {
+  await mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

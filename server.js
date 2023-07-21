@@ -12,9 +12,8 @@ app.listen(process.env.PORT || 8000, () => {
   console.log('Server is running on port: 8000');
 });
 
-connectToDB();
-
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+connectToDB().then(() => {
+  app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 if(process.env.NODE_ENV !== 'production') {
   app.use(
@@ -48,6 +47,9 @@ app.get('*', (req, res) => {
 app.use((req, res) => {
   res.status(400).send('Not found..');
 });
+});
+
+
 
 
 
